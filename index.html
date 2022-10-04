@@ -8,68 +8,54 @@
 <body>
     <input type="file" onchange="encodeImageFileAsURL(this)" accept="image/*" />
     <script>
-        let done;
+        let done = 'getting';
         function encodeImageFileAsURL(element) {
             let file = element.files[0];
             let reader = new FileReader();
             reader.onloadend = function () {
                 document.write('RESULT: ', reader.result);
                 console.log(reader.result, 'inside document');
-                window.parent.postMessage(
-                    JSON.stringify({
-                        event_code: "ym-client-event",
-                        data: JSON.stringify({
-                            event: {
-                                code: "base64value",
-                                data: {
-                                    valueofimage: reader.result,
-                                },
-                            },
-                        }),
-                    }),
-                    "*"
-                );
+                console.log(window.parent.postMessage, 'before');
+                // window.parent.postMessage(
+                //     JSON.stringify({
+                //         event_code: "ym-client-event",
+                //         data: JSON.stringify({
+                //             event: {
+                //                 code: "base64value",
+                //                 data: {
+                //                     valueofimage: reader.result,
+                //                 },
+                //             },
+                //         }),
+                //     }),
+                //     "*"
+                // );
+                console.log(window.parent.postMessage, 'After');
             }
+            console.log(window.parent.postMessage, 'Outside');
             reader.readAsDataURL(file);
             //done = reader.result;
             // myFunction(done);
             //function myFunction(done) {
             console.log(done, 'inside my func');
-            // window.parent.postMessage(
-            //     JSON.stringify({
-            //         event_code: "ym-client-event",
-            //         data: JSON.stringify({
-            //             event: {
-            //                 code: "base64value",
-            //                 data: {
-            //                     valueofimage: done,
-            //                 },
-            //             },
-            //         }),
-            //     }),
-            //     "*"
-            // );
+            window.parent.postMessage(
+                JSON.stringify({
+                    event_code: "ym-client-event",
+                    data: JSON.stringify({
+                        event: {
+                            code: "base64value",
+                            data: {
+                                valueofimage: done,
+                            },
+                        },
+                    }),
+                }),
+                "*"
+            );
+            console.log(window.parent.postMessage, 'Outside');
             alert(`saved`);
             //}
         }
-        // function myFunction(done) {
-        //     console.log(done, 'inside my func');
-        //     window.parent.postMessage(
-        //         JSON.stringify({
-        //             event_code: "ym-client-event",
-        //             data: JSON.stringify({
-        //                 event: {
-        //                     code: "base64value",
-        //                     data: {
-        //                         valueofimage: done,
-        //                     },
-        //                 },
-        //             }),
-        //         }),
-        //         "*"
-        //     );
-        //     alert(`saved`);
-        // }
     </script>
 </body>
 
