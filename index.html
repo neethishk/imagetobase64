@@ -44,9 +44,9 @@
                     data: JSON.stringify({
                         event: {
                             code: "base64value",
-                            data: {
-                                valueofimage: done,
-                            },
+                            data: JSON.stringify({
+                                'valueofimage': 'done',
+                            }),
                         },
                     }),
                 }),
