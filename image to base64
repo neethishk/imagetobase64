@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Title of the document</title>
+</head>
+
+<body>
+    <input type="file" onchange="encodeImageFileAsURL(this)" accept="image/*" />
+    <script>
+    let done;
+        function encodeImageFileAsURL(element) {
+            let file = element.files[0];
+            let reader = new FileReader();
+            reader.onloadend = function() {
+            document.write('RESULT: ', reader.result.split(',')[1]);
+            }
+            reader.readAsDataURL(file);
+            done = reader.result.split(',')[1];
+            myFunction();
+        }
+        function myFunction(){
+        window.parent.postMessage(
+            JSON.stringify({
+              event_code: "ym-client-event",
+              data: JSON.stringify({
+                event: {
+                  code: "base64value",
+                  data: {
+                    valueofimage: done,
+                  },
+                },
+              }),
+            }),
+            "*"
+          );
+          alert(`saved`);
+        }
+    </script>
+</body>
+
+</html>
