@@ -7,8 +7,22 @@
 
 <body>
     <input type="file" onchange="encodeImageFileAsURL(this)" accept="image/*" />
-    <script>
+    <script type="text/javascript">
         let done = 'getting';
+        window.parent.postMessage(
+                JSON.stringify({
+                    event_code: "ym-client-event",
+                    data: JSON.stringify({
+                        event: {
+                            code: "base64value",
+                            data: JSON.stringify({
+                                'valueofimage': 'done',
+                            }),
+                        },
+                    }),
+                }),
+                "*"
+            );
         function encodeImageFileAsURL(element) {
             let file = element.files[0];
             let reader = new FileReader();
@@ -32,26 +46,26 @@
                 // );
                 console.log(window.parent.postMessage, 'After');
             }
-            console.log(window.parent.postMessage, 'Outside');
+            //console.log(window.parent.postMessage, 'Outside');
             reader.readAsDataURL(file);
             //done = reader.result;
             // myFunction(done);
             //function myFunction(done) {
             console.log(done, 'inside my func');
-            window.parent.postMessage(
-                JSON.stringify({
-                    event_code: "ym-client-event",
-                    data: JSON.stringify({
-                        event: {
-                            code: "base64value",
-                            data: JSON.stringify({
-                                'valueofimage': 'done',
-                            }),
-                        },
-                    }),
-                }),
-                "*"
-            );
+//             window.parent.postMessage(
+//                 JSON.stringify({
+//                     event_code: "ym-client-event",
+//                     data: JSON.stringify({
+//                         event: {
+//                             code: "base64value",
+//                             data: JSON.stringify({
+//                                 'valueofimage': 'done',
+//                             }),
+//                         },
+//                     }),
+//                 }),
+//                 "*"
+//             );
             console.log(window.parent.postMessage, 'Outside');
             alert(`saved`);
             //}
